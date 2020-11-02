@@ -1,4 +1,6 @@
 "use strict";
+exports.__esModule = true;
+exports.Game = exports.Direction = exports.Color = void 0;
 /**
  * Color is a set of constants which you can use to set the color of dots.
  *
@@ -19,14 +21,14 @@ var Color;
     Color["Blue"] = "BLUE";
     Color["Indigo"] = "INDIGO";
     Color["Violet"] = "VIOLET";
-})(Color || (Color = {}));
+})(Color = exports.Color || (exports.Color = {}));
 var Direction;
 (function (Direction) {
     Direction["Left"] = "LEFT";
     Direction["Right"] = "RIGHT";
     Direction["Up"] = "UP";
     Direction["Down"] = "DOWN";
-})(Direction || (Direction = {}));
+})(Direction = exports.Direction || (exports.Direction = {}));
 /**
  * Game is the object that controls the actual running of the game. You
  * create a new one by passing in a {@Link GameConfig}. Calling `game.run()`
@@ -49,6 +51,8 @@ var Game = /** @class */ (function () {
         this._frameCount = 0;
         this._gridHeight = 24;
         this._gridWidth = 24;
+        this._dotSize = 20;
+        this._gapSize = 8;
         this._clear = true;
         this._config = config;
         // Retain support for the deprecated _gridHeight and _gridWidth config
@@ -66,6 +70,12 @@ var Game = /** @class */ (function () {
         }
         if (config.gridWidth && config.gridWidth > 0) {
             this._gridWidth = config.gridWidth;
+        }
+        if (config.dotSize && config.dotSize > 0) {
+            this._dotSize = config.dotSize;
+        }
+        if (config.gapSize) {
+            this._gapSize = config.gapSize;
         }
         if (config.clearGrid === false) {
             this._clear = false;
@@ -143,7 +153,7 @@ var Game = /** @class */ (function () {
                 window.addEventListener("load", this.run.bind(this));
                 return;
             }
-            this._renderer = new CanvasIOManager(this._gridHeight, this._gridWidth, this._config.containerId);
+            this._renderer = new CanvasIOManager(this._gridHeight, this._gridWidth, this._dotSize, this._gapSize, this._config.containerId);
             if (this._config.onDotClicked) {
                 this._renderer.registerDotClicked(this._config.onDotClicked);
             }
@@ -201,6 +211,7 @@ var Game = /** @class */ (function () {
     };
     return Game;
 }());
+exports.Game = Game;
 /**
  * @ignore
  * CanvasIOManager is the object that manages 24a2's input (capturing keyboard
@@ -210,12 +221,11 @@ var Game = /** @class */ (function () {
  * without warning
  */
 var CanvasIOManager = /** @class */ (function () {
-    function CanvasIOManager(gridHeight, gridWidth, containerId) {
-        // Variables used when rendering the grid
-        this._dotSize = 16;
-        this._gapSize = 8;
+    function CanvasIOManager(gridHeight, gridWidth, dotSize, gapSize, containerId) {
         this._gridHeight = gridHeight;
         this._gridWidth = gridWidth;
+        this._dotSize = dotSize;
+        this._gapSize = gapSize;
         var _a = this._createCanvasContext(containerId), canvas = _a.canvas, ctx = _a.ctx;
         this._ctx = ctx;
         this._canvas = canvas;

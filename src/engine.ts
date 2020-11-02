@@ -7,7 +7,7 @@
  * game.setDot(x, y, Color.Red)
  * ```
  */
-enum Color {
+export enum Color {
   Gray = "GRAY",
   Black = "BLACK",
   Red = "RED",
@@ -19,7 +19,7 @@ enum Color {
   Violet = "VIOLET",
 }
 
-enum Direction {
+export enum Direction {
   Left = "LEFT",
   Right = "RIGHT",
   Up = "UP",
@@ -29,7 +29,7 @@ enum Direction {
 /**
  * GameConfig is the object you pass when contructing a new {@link Game}.
  */
-interface GameConfig {
+export interface GameConfig {
   /**
    * `create(game)` is a function which is called once, just before the game
    * starts running. You can use it to initialise game state, if needed.
@@ -78,6 +78,16 @@ interface GameConfig {
    */
   gridHeight?: number;
 
+  /* 
+   * Sets the size of the dots. By default, this is set to 20.
+   */
+  dotSize?: number;
+
+  /* 
+   * Sets the gaps between the dots. By default, this is set to 8.
+   */
+  gapSize?: number;
+
   /**
    * @ignore
    */
@@ -113,7 +123,7 @@ interface GameConfig {
  * game.run()
  * ```
  */
-class Game {
+export class Game {
   private _config: GameConfig;
 
   private _text = "";
@@ -124,6 +134,9 @@ class Game {
 
   private _gridHeight = 24;
   private _gridWidth = 24;
+
+  private _dotSize = 20;
+  private _gapSize = 8;
 
   private _clear = true;
 
@@ -154,6 +167,13 @@ class Game {
     }
     if (config.gridWidth && config.gridWidth > 0) {
       this._gridWidth = config.gridWidth;
+    }
+
+    if (config.dotSize && config.dotSize > 0) {
+      this._dotSize = config.dotSize;
+    }
+    if (config.gapSize) {
+      this._gapSize = config.gapSize;
     }
 
     if (config.clearGrid === false) {
@@ -252,6 +272,8 @@ class Game {
       this._renderer = new CanvasIOManager(
         this._gridHeight,
         this._gridWidth,
+        this._dotSize,
+        this._gapSize,
         this._config.containerId
       );
       if (this._config.onDotClicked) {
@@ -346,8 +368,8 @@ class CanvasIOManager {
   private _gridWidth: number;
 
   // Variables used when rendering the grid
-  private _dotSize = 16;
-  private _gapSize = 8;
+  private _dotSize: number;
+  private _gapSize: number;
 
   private _canvas: HTMLCanvasElement;
   private _ctx: CanvasRenderingContext2D;
@@ -355,9 +377,12 @@ class CanvasIOManager {
   private _dotClicked?: (x: number, y: number) => void;
   private _keyPressed?: (direction: Direction) => void;
 
-  constructor(gridHeight: number, gridWidth: number, containerId?: string) {
+  constructor(gridHeight: number, gridWidth: number, dotSize:number, gapSize: number, containerId?: string) {
     this._gridHeight = gridHeight;
     this._gridWidth = gridWidth;
+
+    this._dotSize = dotSize;
+    this._gapSize = gapSize;
 
     const { canvas, ctx } = this._createCanvasContext(containerId);
     this._ctx = ctx;
