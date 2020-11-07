@@ -1,6 +1,6 @@
-**Note: This is a fork of James Routley's 24a2 for use in my implementation of the Game of Life using the engine. The main changes this fork makes are in preparing the engine to be used as a module in a modern web toolchain, rather than only via CDN. 
+**Note: This is a fork of James Routley's 24a2 for use in my implementation of the Game of Life using the engine. The main changes this fork makes are in preparing the engine to be used as a module in a modern web toolchain, rather than only via CDN.** 
 
-The engine's public interfaces and enums (Game, GameConfig, Color, and Direction) are now exported, so that they can be imported by other files. Additionally the package.json file has been updated to specify the package as a typed module.**
+**The engine's public interfaces and enums (Game, GameConfig, Color, and Direction) are now exported, so that they can be imported by other files. Additionally the package.json file has been updated to specify the package as a typed module.**
 
 # 24a2
 
