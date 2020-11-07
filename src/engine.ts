@@ -1,3 +1,5 @@
+
+
 /**
  * Color is a set of constants which you can use to set the color of dots.
  *

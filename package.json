@@ -1,30 +1,4 @@
 {
-  "_from": "24a2",
-  "_id": "24a2@0.2.1",
-  "_inBundle": false,
-  "_integrity": "sha512-AEmCY9y3EFds9n2sd7TJAVVRAeu2pf7WcFgOy1FWDCDt1cQBe/RhJinuJhBnEF34P+ZlwMHJIeHRIi+hP0G6CA==",
-  "_location": "/24a2",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "24a2",
-    "name": "24a2",
-    "escapedName": "24a2",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/24a2/-/24a2-0.2.1.tgz",
-  "_shasum": "96ae501ae03533f5610b5dba1c746a75a80ca04d",
-  "_spec": "24a2",
-  "_where": "/home/micah/Documents/code/gol_24",
-  "bundleDependencies": false,
-  "deprecated": false,
   "description": "![](/website/static/img/banner.png)",
   "devDependencies": {
     "typedoc": "^0.17.6",
@@ -36,5 +10,5 @@
   "main": "build/engine.js",
   "license": "MIT",
   "name": "24a2",
-  "version": "0.2.1"
+  "version": "0.3.0"
 }
